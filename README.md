@@ -64,7 +64,7 @@ npm run dev
 ```
 
 ### Deployed Frontend:
-> **Live URL:** [https://your-deployed-frontend.com](https://your-deployed-frontend.com)
+> **Live URL:** [https://ai-sustainable-farming.vercel.app/](https://ai-sustainable-farming.vercel.app/)
 
 ---
 
@@ -77,7 +77,7 @@ npm run dev
 - [Tailwind CSS](https://tailwindcss.com/)
 
 ### 📌 Contributors
-- **Your Name** - [GitHub](https://github.com/your-username)
+- **AbhishekKuntare** - [GitHub](https://github.com/Abhishekkuntare)
 
 ### 📜 License
 This project is licensed under the MIT License.
