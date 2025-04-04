@@ -62,7 +62,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://abhsan-ai-farm.hf.space",
+  baseURL: "https://ai-farm.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
