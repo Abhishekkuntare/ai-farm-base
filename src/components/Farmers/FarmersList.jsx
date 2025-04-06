@@ -26,8 +26,7 @@ import {
 import { CheckIcon, LinkIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-const [ollamaNotSupported, setOllamaNotSupported] = useState(false);
-const { isOpen, onOpen, onClose } = useDisclosure();
+
 
 
 function FarmersList() {
@@ -38,6 +37,8 @@ function FarmersList() {
   const [selectedFarm, setSelectedFarm] = useState(null);
   const [loadingAdvice, setLoadingAdvice] = useState(false);
   const [loadingFarmers, setLoadingFarmers] = useState(true);
+  const [ollamaNotSupported, setOllamaNotSupported] = useState(false);
+const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     async function loadFarmers() {
