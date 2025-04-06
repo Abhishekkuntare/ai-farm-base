@@ -12,8 +12,11 @@ import {
   useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 function MarketUpload() {
+  const { t } = useTranslation();
+
   const [marketForm, setMarketForm] = useState({
     Product: "",
     Market_Price_per_ton: "",
@@ -27,8 +30,7 @@ function MarketUpload() {
   });
 
   const toast = useToast();
-  
-  // Theme-based colors
+
   const bgColor = useColorModeValue("gray.50", "gray.800");
   const inputBg = useColorModeValue("white", "gray.700");
   const textColor = useColorModeValue("black", "white");
@@ -40,8 +42,8 @@ function MarketUpload() {
 
     if (!isFormValid) {
       toast({
-        title: "Error",
-        description: "Please fill all fields before submitting.",
+        title: t("market.toast.errorTitle"),
+        description: t("market.toast.errorDesc"),
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -51,8 +53,8 @@ function MarketUpload() {
 
     await uploadMarketData(marketForm);
     toast({
-      title: "Success",
-      description: "Market data uploaded successfully.",
+      title: t("market.toast.successTitle"),
+      description: t("market.toast.successDesc"),
       status: "success",
       duration: 3000,
       isClosable: true,
@@ -75,7 +77,7 @@ function MarketUpload() {
     <Container maxW="xl" centerContent>
       <Box w="100%" p={6} boxShadow="md" borderRadius="md" bg={bgColor}>
         <Heading size="lg" mb={4} textAlign="center" color={textColor}>
-          Upload Market Data
+          {t("market.title")}
         </Heading>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="stretch">
@@ -86,14 +88,14 @@ function MarketUpload() {
                 name={key}
                 value={marketForm[key]}
                 onChange={(e) => setMarketForm({ ...marketForm, [key]: e.target.value })}
-                placeholder={key.replace(/_/g, " ")}
+                placeholder={t(`market.fields.${key}`)}
                 bg={inputBg}
                 color={textColor}
                 focusBorderColor="green.500"
               />
             ))}
             <Button colorScheme="green" type="submit" w="full">
-              Submit
+              {t("market.submit")}
             </Button>
           </VStack>
         </form>

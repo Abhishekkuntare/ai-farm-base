@@ -14,8 +14,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,8 +30,8 @@ const Contact = () => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: 'Error',
-        description: 'All fields are required.',
+        title: t('contact.errorTitle'),
+        description: t('contact.errorDesc'),
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -38,8 +40,8 @@ const Contact = () => {
     }
 
     toast({
-      title: 'Success',
-      description: 'Your message has been sent!',
+      title: t('contact.successTitle'),
+      description: t('contact.successDesc'),
       status: 'success',
       duration: 3000,
       isClosable: true,
@@ -51,13 +53,23 @@ const Contact = () => {
   return (
     <Container maxW='lg' centerContent>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-        <Box w='100%' p={6} boxShadow='md' borderRadius='md' bg={useColorModeValue('gray.50', 'gray.800')}>
-          <Heading size='lg' mb={4} textAlign='center'>Contact Us</Heading>
-          <Text textAlign='center' mb={4}>Have any questions? Feel free to reach out via email or by using the form below.</Text>
+        <Box
+          w='100%'
+          p={6}
+          boxShadow='md'
+          borderRadius='md'
+          bg={useColorModeValue('gray.50', 'gray.800')}
+        >
+          <Heading size='lg' mb={4} textAlign='center'>
+            {t('contact.title')}
+          </Heading>
+          <Text textAlign='center' mb={4}>
+            {t('contact.description')}
+          </Text>
           <VStack spacing={4} align='stretch'>
             <Input
               type='text'
-              placeholder='Your Name'
+              placeholder={t('contact.name')}
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               bg={useColorModeValue('white', 'gray.700')}
@@ -65,24 +77,27 @@ const Contact = () => {
             />
             <Input
               type='email'
-              placeholder='Your Email'
+              placeholder={t('contact.email')}
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               bg={useColorModeValue('white', 'gray.700')}
               focusBorderColor='green.500'
             />
             <Textarea
-              placeholder='Your Message'
+              placeholder={t('contact.message')}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               bg={useColorModeValue('white', 'gray.700')}
               focusBorderColor='green.500'
             />
-            <Button colorScheme='green' onClick={handleSubmit} w='full'>Send Message</Button>
+            <Button colorScheme='green' onClick={handleSubmit} w='full'>
+              {t('contact.send')}
+            </Button>
           </VStack>
         </Box>
         <Text textAlign='center' mt={4} color={useColorModeValue('gray.600', 'gray.300')}>
-          Or email us at: <b>contact@aisustainablefarming.com</b>
+          {t('contact.emailText')}{' '}
+          <b>sgongshe@gmail.com</b>
         </Text>
       </motion.div>
     </Container>

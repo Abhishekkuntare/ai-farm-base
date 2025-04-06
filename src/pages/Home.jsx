@@ -12,17 +12,19 @@ import {
   Icon,
   useColorModeValue,
   useBreakpointValue,
-  Divider,
   SimpleGrid,
-  Avatar,
   Flex,
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { FaLeaf, FaTractor, FaSeedling } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <>
+      {/* Hero Section */}
       <Container maxW={'5xl'} px={6}>
         <Stack
           as={Box}
@@ -35,16 +37,13 @@ export default function Home() {
             fontSize={useBreakpointValue({ base: '3xl', sm: '4xl', md: '5xl' })}
             lineHeight={'110%'}
           >
-            Revolutionizing Agriculture with <br />
+            {t('home.heroTitle1')} <br />
             <Text as={'span'} color={'green.400'}>
-              AI & Sustainability
+              {t('home.heroTitle2')}
             </Text>
           </Heading>
           <Text color={'gray.500'} fontSize={{ base: 'md', md: 'lg' }}>
-            Harness the power of artificial intelligence to optimize crop yields,
-            reduce resource wastage, and promote sustainable farming practices.
-            Get real-time insights and smart recommendations tailored for modern
-            agriculture.
+            {t('home.heroDesc')}
           </Text>
           <Stack direction={{ base: 'column', sm: 'row' }} spacing={4} justify={'center'}>
             <Link to={'/getadvice'}>
@@ -55,7 +54,7 @@ export default function Home() {
                 px={6}
                 _hover={{ bg: 'green.500' }}
               >
-                Get Started
+                {t('home.getStarted')}
               </Button>
             </Link>
           </Stack>
@@ -67,51 +66,63 @@ export default function Home() {
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
           <VStack>
             <Icon as={FaLeaf} w={10} h={10} color={'green.400'} />
-            <Text fontSize={'xl'} fontWeight={'bold'}>Sustainable Farming</Text>
+            <Text fontSize={'xl'} fontWeight={'bold'}>
+              {t('home.features.sustainableFarming')}
+            </Text>
             <Text textAlign={'center'} color={'gray.600'}>
-              Use AI-powered insights to optimize resource use and promote eco-friendly farming.
+              {t('home.features.desc1')}
             </Text>
           </VStack>
           <VStack>
             <Icon as={FaTractor} w={10} h={10} color={'green.400'} />
-            <Text fontSize={'xl'} fontWeight={'bold'}>Smart Automation</Text>
+            <Text fontSize={'xl'} fontWeight={'bold'}>
+              {t('home.features.smartAutomation')}
+            </Text>
             <Text textAlign={'center'} color={'gray.600'}>
-              Automate farming tasks with AI recommendations for better productivity.
+              {t('home.features.desc2')}
             </Text>
           </VStack>
           <VStack>
             <Icon as={FaSeedling} w={10} h={10} color={'green.400'} />
-            <Text fontSize={'xl'} fontWeight={'bold'}>Higher Crop Yields</Text>
+            <Text fontSize={'xl'} fontWeight={'bold'}>
+              {t('home.features.higherYields')}
+            </Text>
             <Text textAlign={'center'} color={'gray.600'}>
-              Boost yields with AI-driven soil analysis, weather predictions, and smart crop planning.
+              {t('home.features.desc3')}
             </Text>
           </VStack>
         </SimpleGrid>
       </Container>
 
-      {/* How It Works */}
+      {/* How It Works Section */}
       <Box bg={useColorModeValue('gray.100', 'gray.700')} py={12}>
         <Container maxW={'5xl'}>
           <Heading textAlign={'center'} mb={6}>
-            How It Works
+            {t('home.howItWorks')}
           </Heading>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
             <VStack>
-              <Text fontSize={'lg'} fontWeight={'bold'}>1. Input Data</Text>
+              <Text fontSize={'lg'} fontWeight={'bold'}>
+                {t('home.step1')}
+              </Text>
               <Text textAlign={'center'} color={'gray.600'}>
-                Provide details about soil, weather, and crops.
+                {t('home.step1desc')}
               </Text>
             </VStack>
             <VStack>
-              <Text fontSize={'lg'} fontWeight={'bold'}>2. AI Analysis</Text>
+              <Text fontSize={'lg'} fontWeight={'bold'}>
+                {t('home.step2')}
+              </Text>
               <Text textAlign={'center'} color={'gray.600'}>
-                Our AI processes data to generate insights.
+                {t('home.step2desc')}
               </Text>
             </VStack>
             <VStack>
-              <Text fontSize={'lg'} fontWeight={'bold'}>3. Get Recommendations</Text>
+              <Text fontSize={'lg'} fontWeight={'bold'}>
+                {t('home.step3')}
+              </Text>
               <Text textAlign={'center'} color={'gray.600'}>
-                Receive smart suggestions for better farming.
+                {t('home.step3desc')}
               </Text>
             </VStack>
           </SimpleGrid>
@@ -122,10 +133,10 @@ export default function Home() {
       <Box bg={'gray.900'} color={'gray.300'} py={6} mt={12}>
         <Container maxW={'6xl'}>
           <Flex direction={{ base: 'column', md: 'row' }} justify={'space-between'}>
-            <Text>© 2025 AI Farming Solutions. All rights reserved.</Text>
+            <Text>{t('home.footer.rights')}</Text>
             <HStack spacing={4}>
-              <Link to={'/about'}>About</Link>
-              <Link to={'/contact'}>Contact</Link>
+              <Link to={'/about'}>{t('home.footer.about')}</Link>
+              <Link to={'/contact'}>{t('home.footer.contact')}</Link>
             </HStack>
           </Flex>
         </Container>

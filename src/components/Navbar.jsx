@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Container,
   Box,
-  Text,
   Flex,
   Spacer,
   Heading,
@@ -15,7 +14,8 @@ import {
   HStack,
   Button,
   useColorModeValue,
-  useColorMode
+  useColorMode,
+  Select
 } from '@chakra-ui/react';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
@@ -23,11 +23,14 @@ import { MdAdd } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaMoon, FaSun } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => i18n.changeLanguage(lng);
   const navigate = useNavigate();
-  const { colorMode, toggleColorMode } = useColorMode(); // Dark mode toggle
-
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [language, setLanguage] = React.useState(i18n.language || 'en');
   return (
     <Container maxW="7xl" p={{ base: 5, md: 10 }}>
       <Flex align="center">
@@ -45,7 +48,7 @@ const Navbar = () => {
                     bgGradient: 'linear(to-r, green.500, yellow.500)'
                   }}
                 >
-                  AI Sustainable Farming
+                  {t('title')}
                 </Heading>
               </motion.div>
             </Box>
@@ -54,17 +57,43 @@ const Navbar = () => {
         <Spacer />
 
         {/* Desktop Buttons */}
-        <HStack display={{ base: "none", md: "flex" }}>
+        <HStack display={{ base: "none", md: "flex" }} spacing={3}>
           <Button as={Link} to="/farmer-upload" leftIcon={<MdAdd />} colorScheme="pink">
-            Upload Farmer Data
+            {t('uploadFarmer')}
           </Button>
           <Button as={Link} to="/market-upload" leftIcon={<MdAdd />} colorScheme="purple">
-            Upload Market Data
+            {t('uploadMarket')}
           </Button>
           <Button as={Link} to="/getadvice" leftIcon={<LuLayoutDashboard />} colorScheme="blue">
-            AI Advice
+            {t('aiAdvice')}
           </Button>
-          {/* Dark Mode Toggle Button */}
+          // Inside your component JSX
+          <Select
+            size="sm"
+            variant="filled"
+            value={language}
+            onChange={(e) => {
+              const newLang = e.target.value;
+              setLanguage(newLang);
+              changeLanguage(newLang);
+            }}
+            bg={useColorModeValue("white", "gray.700")}
+            color={useColorModeValue("black", "white")}
+            borderRadius="md"
+            boxShadow="sm"
+            _hover={{ bg: useColorModeValue("gray.100", "gray.600") }}
+            _focus={{
+              borderColor: "green.400",
+              boxShadow: "0 0 0 1px green.400",
+            }}
+            width="100px"
+            fontWeight="medium"
+            mr={2}
+          >
+            <option value="en">English</option>
+            <option value="mr"> मराठी</option>
+            <option value="hi"> हिंदी</option>
+          </Select>
           <IconButton
             aria-label="Toggle Dark Mode"
             icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
@@ -85,19 +114,30 @@ const Navbar = () => {
             />
             <MenuList>
               <MenuItem icon={<MdAdd />} onClick={() => navigate("/farmer-upload")}>
-                Upload Farmer Data
+                {t('uploadFarmer')}
               </MenuItem>
               <MenuDivider />
               <MenuItem icon={<MdAdd />} onClick={() => navigate("/market-upload")}>
-                Upload Market Data
+                {t('uploadMarket')}
               </MenuItem>
               <MenuDivider />
               <MenuItem icon={<LuLayoutDashboard />} onClick={() => navigate("/getadvice")}>
-                AI Advice
+                {t('aiAdvice')}
               </MenuItem>
               <MenuDivider />
+
+              {/* Language Dropdown */}
+              {/* Language Switcher inside mobile menu */}
+              <MenuDivider />
+              <MenuItem onClick={() => changeLanguage('en')}>🌐 English</MenuItem>
+              <MenuItem onClick={() => changeLanguage('hi')}>🌐 हिन्दी</MenuItem>
+              <MenuItem onClick={() => changeLanguage('mr')}>🌐 मराठी</MenuItem>
+              <MenuDivider />
+
+
+              <MenuDivider />
               <MenuItem icon={colorMode === 'light' ? <FaMoon /> : <FaSun />} onClick={toggleColorMode}>
-                {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+                {colorMode === 'light' ? t('darkMode') : t('lightMode')}
               </MenuItem>
             </MenuList>
           </Menu>

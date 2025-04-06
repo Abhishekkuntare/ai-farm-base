@@ -12,8 +12,10 @@ import {
   useToast,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 function FarmerUpload() {
+  const { t } = useTranslation();
   const [farmerForm, setFarmerForm] = useState({
     Soil_pH: '',
     Soil_Moisture: '',
@@ -38,8 +40,8 @@ function FarmerUpload() {
     
     if (!isFormValid) {
       toast({
-        title: 'Error',
-        description: 'Please fill all fields before submitting.',
+        title: t('form.errorTitle'),
+        description: t('form.errorDesc'),
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -49,8 +51,8 @@ function FarmerUpload() {
 
     await uploadFarmerData(farmerForm);
     toast({
-      title: 'Success',
-      description: 'Farmer data uploaded successfully.',
+      title: t('form.successTitle'),
+      description: t('form.successDesc'),
       status: 'success',
       duration: 3000,
       isClosable: true,
@@ -73,7 +75,7 @@ function FarmerUpload() {
     <Container maxW='xl' centerContent>
       <Box w='100%' p={6} boxShadow='md' borderRadius='md' bg={bgColor}>
         <Heading size='lg' mb={4} textAlign='center' color={textColor}>
-          Upload Farmer Data
+          {t('form.title')}
         </Heading>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align='stretch'>
@@ -84,13 +86,15 @@ function FarmerUpload() {
                 name={key}
                 value={farmerForm[key]}
                 onChange={(e) => setFarmerForm({ ...farmerForm, [key]: e.target.value })}
-                placeholder={key.replace(/_/g, ' ')}
+                placeholder={t(`form.fields.${key}`)}
                 bg={inputBg}
                 color={textColor}
                 focusBorderColor='green.500'
               />
             ))}
-            <Button colorScheme='green' type='submit' w='full'>Submit</Button>
+            <Button colorScheme='green' type='submit' w='full'>
+              {t('form.submit')}
+            </Button>
           </VStack>
         </form>
       </Box>
