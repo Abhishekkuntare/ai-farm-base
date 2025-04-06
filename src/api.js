@@ -1,8 +1,8 @@
 import axios from "axios";
 import i18n from 'i18next'; // assuming you're using i18next
 const axiosInstance = axios.create({
-  // baseURL: "https://ai-farm.onrender.com",
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "https://ai-farm.onrender.com",
+  // baseURL: "http://127.0.0.1:8000",
   headers: {
     "Content-Type": "application/json",
   },
