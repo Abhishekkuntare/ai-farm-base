@@ -102,6 +102,12 @@
     "recommendations": "Recommendations",
     "watchRelatedVideos": "Watch Related Videos",
     "usefulLinks": "Useful Links",
-    "relatedImages": "Related Images"
+    "relatedImages": "Related Images",
+    "modalTitle": "🌱 AI Advisory Unavailable",
+    "modalLine1": "Hello! It looks like the AI-based farm advisory system is currently unavailable due to technical limitations in our production environment.",
+    "modalLine2": "But don’t worry — we’re here to help you manually with expert advice tailored to your farm's needs.",
+    "modalLine3": "Kindly contact us at:",
+    "modalLine4": "Thank you for your understanding and support. We’ll make sure to assist you promptly."
   }
+ 
 }

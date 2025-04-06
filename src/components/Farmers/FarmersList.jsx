@@ -38,7 +38,7 @@ function FarmersList() {
   const [loadingAdvice, setLoadingAdvice] = useState(false);
   const [loadingFarmers, setLoadingFarmers] = useState(true);
   const [ollamaNotSupported, setOllamaNotSupported] = useState(false);
-const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     async function loadFarmers() {
@@ -153,26 +153,26 @@ const { isOpen, onOpen, onClose } = useDisclosure();
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>🌱 AI Advisory Unavailable</ModalHeader>
+          <ModalHeader>{t('ai.modalTitle')}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <Text fontSize="md" mb={2}>
-              Hello! It looks like the AI-based farm advisory system is currently unavailable due to technical limitations in our production environment.
+              {t('ai.modalLine1')}
             </Text>
             <Text fontSize="md" mb={2}>
-              But don’t worry — we’re here to help you manually with expert advice tailored to your farm's needs.
+              {t('ai.modalLine2')}
             </Text>
             <Text fontSize="md" mb={4}>
-              Kindly contact us at:
-              <br />
+              {t('ai.modalLine3')}<br />
               <strong style={{ color: '#2B6CB0' }}>📧 sgongshe@gmail.com</strong>
             </Text>
             <Text fontSize="sm" color="gray.500">
-              Thank you for your understanding and support. We’ll make sure to assist you promptly.
+              {t('ai.modalLine4')}
             </Text>
           </ModalBody>
         </ModalContent>
       </Modal>
+
 
       {advice && selectedFarm && !loadingAdvice && (
         <Box
