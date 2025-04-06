@@ -15,10 +15,20 @@ import {
   Spinner,
   Grid,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { CheckIcon, LinkIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+const [ollamaNotSupported, setOllamaNotSupported] = useState(false);
+const { isOpen, onOpen, onClose } = useDisclosure();
+
 
 function FarmersList() {
   const { t, i18n } = useTranslation();
@@ -41,9 +51,24 @@ function FarmersList() {
   const handleGetAdvice = async (farmId) => {
     setSelectedFarm(farmId);
     setLoadingAdvice(true);
-    const lang = i18n.language; // current selected language
-    const result = await getAdvice(farmId, lang);
-    setAdvice(result);
+    const lang = i18n.language;
+
+    try {
+      const result = await getAdvice(farmId, lang);
+
+      if (!result || !result.recommendation) {
+        // Ollama didn't return proper advice
+        setOllamaNotSupported(true);
+        onOpen(); // open the modal
+        setAdvice(null);
+      } else {
+        setAdvice(result);
+      }
+    } catch (error) {
+      setOllamaNotSupported(true);
+      onOpen();
+    }
+
     setLoadingAdvice(false);
   };
 
@@ -108,9 +133,11 @@ function FarmersList() {
                   _hover={{ bg: 'green.500' }}
                   _focus={{ bg: 'green.500' }}
                   onClick={() => handleGetAdvice(farm.Farm_ID)}
+                  isDisabled={ollamaNotSupported}
                 >
                   {t('ai.getAdvice')}
                 </Button>
+
               </Box>
             </Box>
           ))}
@@ -122,6 +149,29 @@ function FarmersList() {
           <Spinner size="xl" color="green.400" />
         </Center>
       )}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>🌱 AI Advisory Unavailable</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <Text fontSize="md" mb={2}>
+              Hello! It looks like the AI-based farm advisory system is currently unavailable due to technical limitations in our production environment.
+            </Text>
+            <Text fontSize="md" mb={2}>
+              But don’t worry — we’re here to help you manually with expert advice tailored to your farm's needs.
+            </Text>
+            <Text fontSize="md" mb={4}>
+              Kindly contact us at:
+              <br />
+              <strong style={{ color: '#2B6CB0' }}>📧 sgongshe@gmail.com</strong>
+            </Text>
+            <Text fontSize="sm" color="gray.500">
+              Thank you for your understanding and support. We’ll make sure to assist you promptly.
+            </Text>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
 
       {advice && selectedFarm && !loadingAdvice && (
         <Box
